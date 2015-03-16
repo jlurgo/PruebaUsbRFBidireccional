@@ -47,16 +47,17 @@ var onDeviceReady = function() {
 				});
 				
 				var recibir_mensaje = function(mensaje_str){
+					console.log("recibido: ", mensaje_str);
 					var mensaje;
 					try{
 						mensaje = JSON.parse(mensaje_str);
 					}catch(err){
 						console.log("error al parsear:", mensaje_str);
 					}
-					if(mensaje.estadoBoton){
-						if(mensaje.estadoBoton == "presionado")	$("#led").addClass("led_encendido");
-						if(mensaje.estadoBoton == "suelto")	$("#led").removeClass("led_encendido");
-					}
+					if(!mensaje) return;
+					if(!mensaje.estadoBoton) return;
+					if(mensaje.estadoBoton == "presionado")	$("#led").addClass("led_encendido");
+					if(mensaje.estadoBoton == "suelto")	$("#led").removeClass("led_encendido");
 				};
 			
 				var buffer_entrada_serie = "";
@@ -64,7 +65,6 @@ var onDeviceReady = function() {
 					function(data){
 						var view = new Uint8Array(data);
 						buffer_entrada_serie += String.fromCharCode.apply(null, view);
-						console.log("recibido:", String.fromCharCode.apply(null, view));
 						var mensajes_en_buffer = buffer_entrada_serie.split('|');
 						if(mensajes_en_buffer.length>1){
 							recibir_mensaje(mensajes_en_buffer[0]);
