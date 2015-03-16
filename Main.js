@@ -18,11 +18,10 @@ var onDeviceReady = function() {
 					var mensaje = JSON.stringify({
 							estadoBoton:"presionado"
 						})+'|';
-					console.log(mensaje);
 					serial.write(
 						mensaje,
 						function(successMessage) {
-							console.log(successMessage);
+							console.log("enviado: ", mensaje);
 						},
 						function(err){
 							console.log("error al enviar por puerto serie:", err);
@@ -34,11 +33,10 @@ var onDeviceReady = function() {
 					var mensaje = JSON.stringify({
 							estadoBoton:"suelto"
 						})+'|';
-					console.log(mensaje);
 					serial.write(
 						mensaje,
 						function(successMessage) {
-							console.log(successMessage);
+							console.log("enviado: ", mensaje);
 						},
 						function(err){
 							console.log("error al enviar por puerto serie:", err);
